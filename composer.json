@@ -1,0 +1,17 @@
+{
+    "name": "jimenezj89/techtest",
+    "description": "Trovit php tech test.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Javier Jiménez",
+            "email": "javier.jimenez.masip@gmail.com"
+        }
+    ],
+    "autoload" : {
+      "psr-4": {
+          "TechTest\\": "src/"
+      }
+    },
+    "require": {}
+}
