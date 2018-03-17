@@ -9,13 +9,13 @@ class InMemoryUserRepository implements UserRepository
 {
     private $userList = [];
 
-    public function find(string $userID): mixed
+    public function find(string $userID)
     {
         if (isset($this->userList[$userID])) {
             return $this->userList[$userID];
         }
 
-        return false;
+        return null;
     }
 
     public function save(User $user)

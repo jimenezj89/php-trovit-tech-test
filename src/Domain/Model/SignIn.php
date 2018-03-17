@@ -21,7 +21,7 @@ final class signIn
             throw new \InvalidArgumentException(sprintf("The user %s does not exist!", $userID));
         }
 
-        if (!$this->isPasswordCorrect($userID, $password)) {
+        if (!$this->isPasswordCorrect($user, $password)) {
             throw new \Exception("Username and password mismatch!");
         }
 

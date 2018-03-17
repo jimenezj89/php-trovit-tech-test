@@ -2,22 +2,23 @@
 
 namespace TechTest\Tests\Domain;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-Use TechTest\Domain\Model\SignIn;
+use TechTest\Domain\Model\SignIn;
 use TechTest\Domain\Model\User;
-Use TechTest\Infrastructure\Persistence\InMemoryUserRepository;
+use TechTest\Domain\Model\ChangeUserPassword;
+use TechTest\Infrastructure\Persistence\InMemoryUserRepository;
 
-
-class SignInTest extends TestCase
+class ChangeUserPasswordTest extends TestCase
 {
-    private $signIn;
     private $userRepository;
+    private $signIn;
+    private $changeUserPassword;
 
     protected function setUp()
     {
         $this->userRepository = new InMemoryUserRepository();
         $this->signIn = new SignIn($this->userRepository);
+        $this->changeUserPassword = new changeUserPassword($this->userRepository);
     }
 
     /**
@@ -55,5 +56,19 @@ class SignInTest extends TestCase
             'TechTest\Domain\Model\User',
             $this->signIn->execute('testUser', 'testPassword')
         );
+    }
+
+    /**
+     * @test
+     */
+    public function tellIfPasswordWasChanged()
+    {
+        $user = new User('testUser', 'testPassword');
+
+        $this->userRepository->save($user);
+
+        $this->changeUserPassword->execute('testUser', 'testPassword', 'testNewPassword');
+
+        $this->assertEquals('testNewPassword', $this->userRepository->find('testUser')->password);
     }
 }
