@@ -1,10 +1,7 @@
 <?php
 
-namespace TechTest\Application\Service;
+namespace TechTest\Domain\Model;
 
-
-use TechTest\Domain\Model\User;
-use TechTest\Domain\Model\UserRepository;
 
 final class signIn
 {
@@ -18,9 +15,22 @@ final class signIn
 
     public function execute($userID, $password)
     {
-        $newUser = new User($userID, $password);
+        $user = $this->userRepository->find($userID);
 
-        return $this->userRepository->save($newUser);
+        if (is_null($user)) {
+            throw new \InvalidArgumentException(sprintf("The user %s does not exist!", $userID));
+        }
+
+        if (!$this->isPasswordCorrect($userID, $password)) {
+            throw new \Exception("Username and password mismatch!");
+        }
+
+        return $user;
+    }
+
+    private function isPasswordCorrect(User $user, string $password)
+    {
+        return $user->password === $password;
     }
 
 }

@@ -18,22 +18,9 @@ final class signUp
 
     public function execute($userID, $password)
     {
-        $user = $this->userRepository->find($userID);
+        $newUser = new User($userID, $password);
 
-        if (is_null($user)) {
-            throw new \InvalidArgumentException(sprintf("The user %s does not exist!", $userID));
-        }
-
-        if (!$this->isPasswordCorrect($userID, $password)) {
-            throw new \Exception("Username and password mismatch!");
-        }
-
-        return $user;
-    }
-
-    private function isPasswordCorrect(User $user, string $password)
-    {
-        return $user->password === $password;
+        return $this->userRepository->save($newUser);
     }
 
 }
