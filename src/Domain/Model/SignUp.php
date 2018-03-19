@@ -13,14 +13,11 @@ final class signUp
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-
     }
 
     public function execute($userID, $password)
     {
-        $newUser = new User($userID, $password);
-
-        return $this->userRepository->save($newUser);
+        return $this->userRepository->save(User::create($userID, $password));
     }
 
 }

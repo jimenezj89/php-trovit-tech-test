@@ -18,9 +18,9 @@ final class ChangeUserPassword
     public function execute($userID, $oldPassword, $newPassword)
     {
         $user = $this->signIn->execute($userID, $oldPassword);
-
         $user->password = $newPassword;
-
         $this->userRepository->save($user);
+
+        return true;
     }
 }
