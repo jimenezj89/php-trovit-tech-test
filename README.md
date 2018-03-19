@@ -1,4 +1,4 @@
-#Technical test
+# Technical test
 
 ## Main exercise
 The objective of the test is to develop an application in PHP, without UI, able to solve the problem using In-Memory 
